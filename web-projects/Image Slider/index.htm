@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Image Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+        }
+
+        .slider-container {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures images fit properly */
+            border-radius: 15px;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slider-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .slider-buttons button {
+            background: rgba(255, 255, 255, 0.6);
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .slider-buttons button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slider-container">
+        <div class="slider">
+            <img id="slider-img" src="" alt="Random Image">
+        </div>
+        <div class="slider-buttons">
+            <button id="prev-btn">&#10094;</button>
+            <button id="next-btn">&#10095;</button>
+        </div>
+    </div>
+
+    <script>
+        const images = [
+            "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/34950/pexels-photo.jpg?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/1462017/pexels-photo-1462017.jpeg?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/2486168/pexels-photo-2486168.jpeg?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?w=400&h=300&fit=crop"
+        ];
+
+        let currentIndex = Math.floor(Math.random() * images.length);
+
+        function updateImage() {
+            document.getElementById("slider-img").src = images[currentIndex];
+        }
+
+        document.getElementById("prev-btn").addEventListener("click", function () {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateImage();
+        });
+
+        document.getElementById("next-btn").addEventListener("click", function () {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateImage();
+        });
+
+        window.onload = updateImage;
+    </script>
+
+</body>
+</html>
